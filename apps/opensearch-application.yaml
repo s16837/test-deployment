@@ -30,5 +30,4 @@ service:
     pipelines:
         traces:
             receivers: [otlp]
-            processors: [servicemap]
             exporters: [otlp]
