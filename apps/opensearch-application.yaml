@@ -19,3 +19,15 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
+exporters:
+    otlp:
+        endpoint: "http://opensearch-opensearch-dashboards:4317"
+        tls:
+            insecure: true
+
+service:
+    pipelines:
+        traces:
+            receivers: [otlp]
+            exporters: [otlp]
