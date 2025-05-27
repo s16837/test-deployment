@@ -20,15 +20,28 @@ spec:
     syncOptions:
       - CreateNamespace=true
 
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+
+processors:
+  batch:
+  servicemap:
+
+
 exporters:
-    otlp:
-        endpoint: "http://opensearch-opensearch-dashboards:4317"
-        tls:
-            insecure: true
+    opensearch:
+        endpoint: "http://opensearch-cluster-url:9200"
+        insecure_skip_verify: true
+
 
 service:
     pipelines:
         traces:
             receivers: [otlp]
-            processors: [servicemap]
-            exporters: [otlp]
+            processors: [batch, servicemap]
+            exporters: [opensearch]
