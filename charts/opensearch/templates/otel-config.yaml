@@ -8,7 +8,7 @@ metadata:
     component: otel-collector-conf
 data:
   otel-collector-config: |
-{{ .Values.otelCollector.config | indent 4 }}
+{{ .Values.otelCollectorConfig | indent 4 }}
 
 ---
 apiVersion: apps/v1

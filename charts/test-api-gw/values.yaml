@@ -4,11 +4,3 @@ replicas: 1
 image:
   repository: s16837/test-api-gw
   tag: 0.1.0-build.096361e
-
-env:
-  - name: OTEL_EXPORTER_OTLP_ENDPOINT
-    value: http://otel-collector:4318
-  - name: OTEL_SERVICE_NAME
-    value: test-api-gw
-  - name: OTEL_TRACES_EXPORTER
-    value: otlp

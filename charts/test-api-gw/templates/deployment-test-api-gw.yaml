@@ -22,7 +22,3 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: {{ .Values.port }}
-        env:
-{{- with .Values.env }}
-{{ toYaml . | indent 14 }}
-{{- end }}

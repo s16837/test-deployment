@@ -78,18 +78,28 @@ otelCollector:
           http:
     processors:
       batch:
-      servicemap:
       memory_limiter:
         limit_mib: 1500
         spike_limit_mib: 512
         check_interval: 5s
+    extensions:
+      zpages: {}
+      memory_ballast:
+        size_mib: 683
     exporters:
-      opensearch:
-        endpoint: "http://opensearch-cluster-url:9200"
-        insecure_skip_verify: true
+      logging:
+        loglevel: debug
+      otlp:
+        endpoint: "http://data-prepper:21890"   # Your target endpoint
+        tls:
+          insecure: true
     service:
+      telemetry:
+        logs:
+          level: "debug"
+      extensions: [zpages, memory_ballast]
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [batch, servicemap]
-          exporters: [opensearch]
+          processors: [memory_limiter, batch]
+          exporters: [otlp]
